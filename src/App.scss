@@ -1,0 +1,48 @@
+/* Extends Milligram */
+
+$main-color: #606c76;
+$accent-color: #9b4dca;
+
+body{
+  margin: 0;
+}
+
+.row.middle{
+  align-items: center;
+  height: 100%;
+  position: relative;
+  flex-direction: row;
+}
+
+.row.fullscreen, .container.fullscreen{
+  margin: 0;
+  height: 100%;
+  width: 100%;
+  max-width: 100%;
+}
+
+.row.absolute, .container.absolute{
+  position: absolute;
+}
+
+.container.scroll{
+  overflow-y: auto;
+}
+
+.container.overflow{
+  overflow: hidden;
+}
+
+.help-block{
+  display: block;
+  margin-top: -15px;
+}
+
+.center{
+  justify-content: center;
+}
+
+.button-alt{
+  background-color: #fff;
+  color: $accent-color;
+}
