@@ -6,12 +6,20 @@ import { useSelector, useDispatch } from 'react-redux';
 
 // Login
 
-export const authLogin = createAsyncThunk('auth/login', async (payload, thunkAPI) => {
+export const authChooseUsername = createAsyncThunk('auth/login', async (payload, thunkAPI) => {
   const body = {
     email: emailError(payload.email),
-    username: usernameError(payload.username)
+    username: usernameError(payload.username),
   }
-  const { data } = await AxiosInstance.post('/login/', body);
+  const { data } = await AxiosInstance.post('login.php', body);
+  return data;
+});
+
+export const authLogin = createAsyncThunk('auth/signUp', async (payload, thunkAPI) => {
+  const body = {
+    email: emailError(payload.email),
+  }
+  const { data } = await AxiosInstance.post('login.php', body);
   return data;
 });
 
@@ -20,8 +28,6 @@ export const handleFetchAuthPending = (state) => {
 };
 
 export const handleFetchAuthRejected = (state, action) => {
-  console.log('REJECTED');
-  console.log(action.error.message);
   state.error = action.error.message;
   state.status = REQUEST_STATUS.ERROR;
 };
@@ -30,7 +36,9 @@ export const handleFetchAuthFulfilled = (state, { payload }) => {
   state.username = payload.data.username;
   state.email = payload.data.email;
   state.status = REQUEST_STATUS.COMPLETE;
-  window.location.replace('/leaderboard');
+  if(payload.data.email){
+    localStorage.setItem('rc_user_email', payload.data.email);
+  }
 };
 
 
@@ -42,7 +50,7 @@ const emailError = (email) => {
 };
 
 const usernameError = (username) => {
-  let res = (username && username.length > 3);
-  if(!res){ throw "Username must be longer than 3 chars"; }
+  let res = (username && username.length > 2);
+  if(!res){ throw "Username must be 3 or more chars"; }
   return username;
 };

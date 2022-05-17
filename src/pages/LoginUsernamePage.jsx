@@ -1,25 +1,37 @@
-import './LoginPage.scss'
+import './Login.scss'
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { authLogin } from '../store/actions/auth-actions';
+import { authChooseUsername } from '../store/actions/auth-actions';
 import { selectError } from '../store/slices/auth-slice';
+import {selectUser} from '../store/slices/auth-slice';
+import { useNavigate } from 'react-router-dom';
 
-const LoginPage = (props) => {
 
-  const [email, setEmail] = useState('');
+const LoginUsernamePage = (props) => {
+
+  const auth = useSelector(selectUser);
+  const navigate = useNavigate();
+
   const [username, setUsername] = useState('');
   const error = useSelector(selectError);
 
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    // Redirect to sign up if no email found
+    if(!auth.email){
+      navigate('/login');
+    }
+  }, [auth]);
 
 
   const handleLogin = (e) => {
     e.preventDefault();
 
 
-    dispatch(authLogin({
-      email: email,
-      username: username
+    dispatch(authChooseUsername({
+      username: username,
+      email: auth.email
     }));
 
   }
@@ -33,17 +45,10 @@ const LoginPage = (props) => {
               {error}
             </div>
           )}
-          Your email:
-          <input
-            type="email"
-            placeholder="magic.raccoon@give.me"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            />
           Your username:
           <input
-            type="text"
-            placeholder="RaccoonStealer42"
+            type="email"
+            placeholder="MajesticRaccoon"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
             />
@@ -53,4 +58,4 @@ const LoginPage = (props) => {
     </div>
   )
 }
-export default LoginPage;
+export default LoginUsernamePage;

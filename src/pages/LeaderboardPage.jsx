@@ -1,40 +1,40 @@
 import React, { useState, useEffect } from 'react';
 import Player from '../components/Player';
 import Countdown from '../components/Countdown';
+import RankTeller from '../components/RankTeller';
 import Stealer from '../components/Stealer';
-import {MAX_WINNERS} from '../settings'
-
-const players = [
-  {
-    username: "gatto",
-    email: "ciao@ciao.it",
-    timestamp: Date.now()
-  },
-  {
-    username: "Mega",
-    email: "ciao@ciao.it",
-    timestamp: Date.now() - 120000
-  },
-  {
-    username: "Tron",
-    email: "ciao@ciao.it",
-    timestamp: Date.now() - 110000
-  },
-  {
-    username: "Hula",
-    email: "ciao@ciao.it",
-    timestamp: Date.now() - 150000
-  },
-]
+import {API_URL, MAX_WINNERS, LEADERBOARD_REFRESH_INTERVAL} from '../settings';
+import AxiosInstance from '../AxiosInstance';
+import { useSelector } from 'react-redux';
+import { selectUser } from '../store/slices/auth-slice';
 
 const LeaderboardPage = (props) => {
 
+  const [board, setBoard] = useState([]);
+  const [myRank, setMyRank] = useState(0);
+  const auth = useSelector(selectUser);
+
+  useEffect(() =>  {
+    refreshBoard();
+    let interval = setInterval(refreshBoard, LEADERBOARD_REFRESH_INTERVAL);
+    return (() => {
+      clearInterval(interval);
+    });
+  }, [props.username]);
+
+  const refreshBoard = () => {
+    AxiosInstance.get('get.php').then((response) => {
+      let brd = response.data;
+      let rank = brd.indexOf(props.username) + 1;
+      setMyRank(rank);
+      setBoard(brd.slice(0, MAX_WINNERS));
+    });
+  }
+
   const getPlayers = () => {
-    return players.sort((a, b) => (
-      a.timestamp - b.timestamp
-    )).slice(0, MAX_WINNERS).map((player, index) => {
+    return board.map((player, index) => {
       return (
-        <Player username={player.username} key={index} rank={(index + 1)} />
+        <Player username={player} key={index} rank={(index + 1)} />
       );
     });
   }
@@ -43,6 +43,7 @@ const LeaderboardPage = (props) => {
     <div className="container">
       <div className="header row">
         <Countdown />
+        <RankTeller rank={myRank} />
         <Stealer />
       </div>
       <div className="players-container container">
