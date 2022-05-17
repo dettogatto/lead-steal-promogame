@@ -1,6 +1,6 @@
 import './App.scss';
 import React, {useEffect} from 'react';
-import { Routes, Route, useNavigate } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, useNavigate } from 'react-router-dom';
 import LoginEmailPage from './pages/LoginEmailPage';
 import LoginUsernamePage from './pages/LoginUsernamePage';
 import LeaderboardPage from './pages/LeaderboardPage';
@@ -36,13 +36,13 @@ function App() {
 
   return (
     <>
-    <Routes>
-      <Route index element={<LoginEmailPage />} />
-      <Route exact path="/login" element={<LoginEmailPage />} />
-      <Route exact path="/username" element={<LoginUsernamePage />} />
-      <Route exact path="/leaderboard" element={<LeaderboardPage username={auth.username} />} />
-      <Route path="*" element={<span>There&apos;s no raccoon here: 404!</span>} />
-    </Routes>
+      <Routes>
+        <Route index element={<LoginEmailPage />} />
+        <Route exact path="/login" element={<LoginEmailPage />} />
+        <Route exact path="/username" element={<LoginUsernamePage />} />
+        <Route exact path="/leaderboard" element={<LeaderboardPage username={auth.username} />} />
+        <Route path="*" element={<span>There&apos;s no raccoon here: 404!</span>} />
+      </Routes>
     </>
 );
 }

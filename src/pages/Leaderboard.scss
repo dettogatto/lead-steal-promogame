@@ -1,0 +1,10 @@
+.row.header{
+  & > div{
+    flex-basis: 1px;
+    flex-grow: 1;
+  }
+}
+
+.stealer-container{
+  text-align: right;
+}

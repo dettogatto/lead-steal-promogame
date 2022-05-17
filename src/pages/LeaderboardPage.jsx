@@ -1,3 +1,4 @@
+import './Leaderboard.scss'
 import React, { useState, useEffect } from 'react';
 import Player from '../components/Player';
 import Countdown from '../components/Countdown';

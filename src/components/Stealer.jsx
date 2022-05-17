@@ -3,6 +3,7 @@ import {END_TIME} from '../settings';
 import AxiosInstance from '../AxiosInstance';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectUser } from '../store/slices/auth-slice';
+import { useNavigate } from 'react-router-dom';
 
 const Stealer = (props) => {
   const ls_lst = localStorage.getItem('rc_lst');
@@ -10,6 +11,7 @@ const Stealer = (props) => {
   const [cooldown, setCoolDown] = useState(0);
   const defaultCooldown = 10000;
   const auth = useSelector(selectUser);
+  const navigate = useNavigate();
 
 
   let interval;
@@ -31,6 +33,10 @@ const Stealer = (props) => {
   }, [lastSteal]);
 
   const handleSteal = () => {
+    if(!auth.email){
+      navigate('/login');
+      return false;
+    }
     let lastSteal = Date.now();
     setLastSteal(lastSteal);
     localStorage.setItem('rc_lst', lastSteal);
@@ -45,12 +51,10 @@ const Stealer = (props) => {
   }
 
   return (
-    <div className="container">
-      <div className="">
-        <button disabled={cooldown > 0} onClick={handleSteal}>
-          {getButtonContent()}
-        </button>
-      </div>
+    <div className="stealer-container container">
+      <button disabled={cooldown > 0} onClick={handleSteal}>
+        {getButtonContent()}
+      </button>
     </div>
   )
 }
