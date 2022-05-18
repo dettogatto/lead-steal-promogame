@@ -14,12 +14,13 @@ const LeaderboardPage = (props) => {
 
   const [board, setBoard] = useState([]);
   const [myRank, setMyRank] = useState(0);
+  const [gameEnded, setGameEnded] = useState(false);
   const auth = useSelector(selectUser);
   const configs = useSelector(selectConfigs);
 
   useEffect(() =>  {
     refreshBoard();
-    let interval = setInterval(() => {refreshBoard()}, LEADERBOARD_REFRESH_INTERVAL);
+    let interval = setInterval(refreshBoard, LEADERBOARD_REFRESH_INTERVAL);
     return (() => {
       clearInterval(interval);
     });
@@ -45,9 +46,9 @@ const LeaderboardPage = (props) => {
   return (
     <div className="container">
       <div className="header row">
-        <Countdown />
+        <Countdown gameEnded={gameEnded} setGameEnded={setGameEnded} />
         <RankTeller rank={myRank} />
-        <Stealer />
+        <Stealer gameEnded={gameEnded} />
       </div>
       <div className="players-container container">
         {getPlayers()}

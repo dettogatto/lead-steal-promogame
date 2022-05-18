@@ -20,7 +20,7 @@ export const handleFetchConfigRejected = (state, action) => {
 
 export const handleFetchConfigFulfilled = (state, { payload }) => {
   console.log('GOT CONFIGS', payload);
-  state.endTime = payload.end_time;
+  state.endTime = payload.end_time * 1000;
   state.maxWinners = payload.max_winners;
   state.stealPosition = payload.steal_position;
   state.status = REQUEST_STATUS.COMPLETE;

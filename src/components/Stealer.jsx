@@ -44,15 +44,22 @@ const Stealer = (props) => {
   }
 
   const getButtonContent = () => {
+    if(props.gameEnded){
+      return "THE SHIP HAS SAILED";
+    }
     if(cooldown > 0){
       return "COOLDOWN: " + cooldown;
     }
     return "STEAL TOP 25";
   }
 
+  const getButtonDisabled = () => {
+    return (cooldown > 0 || props.gameEnded);
+  }
+
   return (
     <div className="stealer-container container">
-      <button disabled={cooldown > 0} onClick={handleSteal}>
+      <button disabled={getButtonDisabled()} onClick={handleSteal}>
         {getButtonContent()}
       </button>
     </div>

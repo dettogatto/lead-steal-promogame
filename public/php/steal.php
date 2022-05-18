@@ -5,7 +5,19 @@ error_reporting(E_ERROR);
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Headers: *");
 
-$steal_span = 25; // Stealing will get you random position in top $steal_span
+require_once('./config.php');
+
+$steal_span = $config["steal_position"];
+
+// Interrupt if game has ended
+if($config["end_time"] < time()){
+  echo(json_encode([
+    'status' => false,
+    'message' => 'Game is over',
+    'data' => []
+  ]));
+  die();
+}
 
 $users_file = __DIR__ . '/data/users';
 $leadb_file = __DIR__ . '/data/leaderboard';
