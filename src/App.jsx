@@ -7,6 +7,7 @@ import LeaderboardPage from './pages/LeaderboardPage';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectUser } from './store/slices/auth-slice';
 import { authLogin } from './store/actions/auth-actions';
+import { fetchConfig } from './store/actions/config-actions';
 
 
 
@@ -31,6 +32,10 @@ function App() {
         email: email
       }));
     }
+  }, []);
+
+  useEffect(() => {
+    dispatch(fetchConfig());
   }, []);
 
 

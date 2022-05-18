@@ -1,5 +1,4 @@
 <?php
-
 error_reporting(E_ERROR);
 
 header("Access-Control-Allow-Origin: *");
