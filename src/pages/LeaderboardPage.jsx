@@ -48,7 +48,7 @@ const LeaderboardPage = (props) => {
       <div className="header row">
         <Countdown gameEnded={gameEnded} setGameEnded={setGameEnded} />
         <RankTeller rank={myRank} />
-        <Stealer gameEnded={gameEnded} />
+        <Stealer gameEnded={gameEnded} refreshBoard={refreshBoard} />
       </div>
       <div className="players-container container">
         {getPlayers()}

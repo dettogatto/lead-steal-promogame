@@ -40,7 +40,9 @@ const Stealer = (props) => {
     let lastSteal = Date.now();
     setLastSteal(lastSteal);
     localStorage.setItem('rc_lst', lastSteal);
-    AxiosInstance.post('steal.php', {email: auth.email});
+    AxiosInstance.post('steal.php', {email: auth.email}).then(() => {
+      props.refreshBoard();
+    });
   }
 
   const getButtonContent = () => {
