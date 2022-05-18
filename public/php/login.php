@@ -10,8 +10,8 @@ $file_path = __DIR__ . '/data/users';
 
 $request_body = file_get_contents('php://input');
 $data = json_decode($request_body, true);
-$email = strtolower($data['email']);
-$username = $data['username'];
+$email = strtolower(trim($data['email']));
+$username = trim($data['username']);
 $current_users = array();
 
 if($email && $username){
@@ -21,6 +21,19 @@ if($email && $username){
 
     $current_users = json_decode(fread($fp, filesize($file_path)), true);
     if(!$current_users[$email]){
+
+      foreach($current_users as $u){
+        if(strtolower($u) === strtolower($username)){
+          // Duplicate username check
+          echo(json_encode([
+            'status' => false,
+            'message' => 'Username is taken',
+            'data' => []
+          ]));
+          die();
+        }
+      }
+
       $current_users[$email] = $username;
       ftruncate($fp, 0);    //Truncate the file to 0
       rewind($fp);          //Set write pointer to beginning of file
@@ -28,17 +41,18 @@ if($email && $username){
       flock($fp, LOCK_UN);  //Unlock File
       echo(json_encode([
         'status' => true,
-        'message' => 'successfully logged in',
+        'message' => 'Successfully logged in',
         'data' => [
           'email' => $email,
           'username' => $username
         ]
       ]));
       die();
+
     } else {
       echo(json_encode([
         'status' => false,
-        'message' => 'duplicate user email',
+        'message' => 'Duplicate user email',
         'data' => []
       ]));
       die();
@@ -47,7 +61,7 @@ if($email && $username){
   } else {
     echo(json_encode([
       'status' => false,
-      'message' => 'could not lock file for writing',
+      'message' => 'Could not lock file for writing',
       'data' => []
     ]));
     die();
@@ -62,7 +76,7 @@ if($email && $username){
   if($current_users[$email]){
     echo(json_encode([
       'status' => true,
-      'message' => 'successfully logged in',
+      'message' => 'Successfully logged in',
       'data' => [
         'email' => $email,
         'username' => $current_users[$email]
@@ -73,7 +87,7 @@ if($email && $username){
     // TODO: add AC integration
     echo(json_encode([
       'status' => true,
-      'message' => 'successfully signed up',
+      'message' => 'Successfully signed up',
       'data' => [
         'email' => $email
       ]
@@ -85,6 +99,6 @@ if($email && $username){
 
 echo(json_encode([
   'status' => false,
-  'message' => 'something went wrong',
+  'message' => 'Something went wrong',
   'data' => []
 ]));

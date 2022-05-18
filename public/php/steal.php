@@ -22,7 +22,7 @@ if($email){
   if(!$username){
     echo(json_encode([
       'status' => false,
-      'message' => 'user not found',
+      'message' => 'User not found',
       'data' => []
     ]));
     die();
@@ -47,7 +47,7 @@ if($email){
     flock($fp, LOCK_UN);  //Unlock File
     echo(json_encode([
       'status' => true,
-      'message' => 'successfully stole position #' . $new_pos,
+      'message' => 'Successfully stole position #' . $new_pos,
       'data' => [
         'position' => $new_pos,
       ]
@@ -56,7 +56,7 @@ if($email){
   } else {
     echo(json_encode([
       'status' => false,
-      'message' => 'could not lock file for writing',
+      'message' => 'Could not lock file for writing',
       'data' => []
     ]));
     die();

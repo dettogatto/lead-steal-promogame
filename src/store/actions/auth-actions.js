@@ -6,20 +6,22 @@ import { useSelector, useDispatch } from 'react-redux';
 
 // Login
 
-export const authChooseUsername = createAsyncThunk('auth/login', async (payload, thunkAPI) => {
+export const authChooseUsername = createAsyncThunk('auth/chooseUsername', async (payload, thunkAPI) => {
   const body = {
     email: emailError(payload.email),
     username: usernameError(payload.username),
   }
   const { data } = await AxiosInstance.post('login.php', body);
+  if(!data.status){ throw data.message; }
   return data;
 });
 
-export const authLogin = createAsyncThunk('auth/signUp', async (payload, thunkAPI) => {
+export const authLogin = createAsyncThunk('auth/login', async (payload, thunkAPI) => {
   const body = {
     email: emailError(payload.email),
   }
   const { data } = await AxiosInstance.post('login.php', body);
+  if(!data.status){ throw data.message; }
   return data;
 });
 

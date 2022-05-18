@@ -1,7 +1,8 @@
 import axios from 'axios';
+import {API_URL} from './settings';
 
 const AxiosInstance = axios.create({
-	baseURL: 'http://localhost/apis/leaderboard/',
+	baseURL: API_URL,
 	headers: {
 		'Content-type': 'application/json'
 	}
