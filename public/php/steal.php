@@ -6,6 +6,8 @@ header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Headers: *");
 
 require_once('./config.php');
+require_once('./activecampaign-api-v3.php');
+$ac = new ActiveCampaign_API_Gatto();
 
 $steal_span = $config["steal_position"];
 
@@ -57,6 +59,21 @@ if($email){
     rewind($fp);          //Set write pointer to beginning of file
     fwrite($fp, json_encode($current_lb));
     flock($fp, LOCK_UN);  //Unlock File
+
+    if($config["active_campaign"]){ // AC
+      $contact = $ac->get_contact_by_email($email);
+      $ac->add_tag_to_contact($contact['id'], $config['ac_tag']);
+
+      // Get kicked out of leaderboard
+      $kicked = $current_lb[$config["max_winners"]];
+      if($kicked){
+        $flipped = array_flip($current_users);
+        $kicked = $flipped[$kicked];
+        $contact = $ac->get_contact_by_email($kicked);
+        $ac->remove_tag_from_contact($contact["id"], $config["ac_tag"]);
+      }
+    }
+
     echo(json_encode([
       'status' => true,
       'message' => 'Successfully stole position #' . $new_pos,

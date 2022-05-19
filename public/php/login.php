@@ -4,6 +4,9 @@ error_reporting(E_ERROR);
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Headers: *");
 
+require_once('./config.php');
+require_once('./activecampaign-api-v3.php');
+$ac = new ActiveCampaign_API_Gatto();
 
 $file_path = __DIR__ . '/data/users';
 
@@ -38,6 +41,18 @@ if($email && $username){
       rewind($fp);          //Set write pointer to beginning of file
       fwrite($fp, json_encode($current_users));
       flock($fp, LOCK_UN);  //Unlock File
+
+      if($config["active_campaign"]){ // AC
+        $fields = [];
+        $fields[$config["ac_nickname_field"]] = $username;
+        $ac->super_sync_contact(
+          ["email" => $email],
+          [$config["ac_list"]],
+          NULL,
+          $fields
+        );
+      }
+
       echo(json_encode([
         'status' => true,
         'message' => 'Successfully logged in',
@@ -83,7 +98,14 @@ if($email && $username){
     ]));
     die();
   } else {
-    // TODO: add AC integration
+
+    if($config["active_campaign"]){ // AC
+      $ac->super_sync_contact(
+        ["email" => $email],
+        [$config["ac_list"]]
+      );
+    }
+
     echo(json_encode([
       'status' => true,
       'message' => 'Successfully signed up',
