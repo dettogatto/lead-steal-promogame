@@ -37,10 +37,11 @@ const Stealer = (props) => {
       navigate('/login');
       return false;
     }
-    let lastSteal = Date.now();
-    setLastSteal(lastSteal);
-    localStorage.setItem('rc_lst', lastSteal);
+    setCoolDown(defaultCooldown);
     AxiosInstance.post('steal.php', {email: auth.email}).then(() => {
+      let lastSteal = Date.now();
+      setLastSteal(lastSteal);
+      localStorage.setItem('rc_lst', lastSteal);
       props.refreshBoard();
     });
   }
@@ -49,6 +50,9 @@ const Stealer = (props) => {
     if(props.gameEnded){
       return "THE SHIP HAS SAILED";
     }
+    if(cooldown === defaultCooldown){
+      return "STEALING...";
+    }
     if(cooldown > 0){
       return "COOLDOWN: " + cooldown;
     }
@@ -56,7 +60,7 @@ const Stealer = (props) => {
   }
 
   const getButtonDisabled = () => {
-    return (cooldown > 0 || props.gameEnded);
+    return (cooldown > 0 || props.gameEnded || lastSteal === -1);
   }
 
   return (
