@@ -46,6 +46,7 @@ if($email){
   if(flock($fp, LOCK_EX)){
 
     $current_lb = json_decode(fread($fp, filesize($leadb_file)), true);
+    if(!$current_lb){$current_lb = [];}
     if (($key = array_search($username, $current_lb)) !== false) {
       // Remove from previous position
       unset($current_lb[$key]);
