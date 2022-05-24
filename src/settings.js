@@ -1,5 +1,5 @@
-// export const ENV = 'prod';
-export const ENV = 'dev';
+export const ENV = 'prod';
+// export const ENV = 'dev';
 
 let apiUrl = process.env.PUBLIC_URL + '/php/';
 if(ENV === 'dev' || ENV === 'test'){
