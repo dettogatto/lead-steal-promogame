@@ -55,7 +55,8 @@ body{
 
 @font-face {
   font-family: 'Krungthep';
-  src: local('MyFont'), url(./assets/fonts/Krungthep.ttf) format('ttf');
+  src: url(./assets/fonts/Krungthep.woff) format('woff'),
+  url(./assets/fonts/Krungthep.woff2) format('woff2');
 }
 
 body{
