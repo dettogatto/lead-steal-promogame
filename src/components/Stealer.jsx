@@ -10,18 +10,16 @@ const Stealer = (props) => {
   const ls_lst = localStorage.getItem('rc_lst');
   const [lastSteal, setLastSteal] = useState(ls_lst ? ls_lst : 0);
   const [cooldown, setCoolDown] = useState(0);
-  const defaultCooldown = 10000;
   const auth = useSelector(selectUser);
   const configs = useSelector(selectConfigs);
   const navigate = useNavigate();
-
 
   let interval;
   const [timeString, setTimeString] = useState("ciao");
 
   useEffect(() => {
     interval = setInterval(() => {
-      let newCooldown = lastSteal - Date.now() + defaultCooldown;
+      let newCooldown = lastSteal - Date.now() + configs.cooldown;
       if(newCooldown > 0){
         setCoolDown(newCooldown);
       } else {
@@ -39,7 +37,7 @@ const Stealer = (props) => {
       navigate('/login');
       return false;
     }
-    setCoolDown(defaultCooldown);
+    setCoolDown(configs.cooldown);
     AxiosInstance.post('steal.php', {email: auth.email}).then(() => {
       let lastSteal = Date.now();
       setLastSteal(lastSteal);
@@ -52,7 +50,7 @@ const Stealer = (props) => {
     if(configs.gameEnded){
       return "THE SHIP HAS SAILED";
     }
-    if(cooldown === defaultCooldown){
+    if(cooldown === configs.cooldown){
       return "STEALING...";
     }
     if(cooldown > 0){

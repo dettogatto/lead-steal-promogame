@@ -27,5 +27,6 @@ export const handleFetchConfigFulfilled = (state, { payload }) => {
   state.maxWinners = payload.max_winners;
   state.stealPosition = payload.steal_position;
   state.gameEnded = (payload.end_time * 1000 < Date.now());
+  state.cooldown = (payload.cooldown * 1000);
   state.status = REQUEST_STATUS.COMPLETE;
 };

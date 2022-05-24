@@ -12,8 +12,9 @@ export const configSlice = createSlice({
   name: 'config',
   initialState: {
     endTime: Date.now() + 24 * 60 * 60 * 1000,
-    maxWinners: 51,
-    stealPosition: 26,
+    maxWinners: 50,
+    stealPosition: 25,
+    cooldown: 10000,
     gemeEnded: false,
     status: REQUEST_STATUS.COMPLETE
   },
