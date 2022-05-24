@@ -6,5 +6,182 @@
 }
 
 .stealer-container{
-  text-align: right;
+  z-index: 2;
+  text-align: center;
+  padding: 30px 0px;
+}
+
+.intro{
+  text-align: center;
+  padding: 0px 10px;
+  margin: 0px;
+}
+
+.footer-ship{
+  height: 70vw;
+  width: 70vw;
+  max-height: 700px;
+  background-repeat: no-repeat;
+  background-image: url('../assets/ship.svg');
+  background-size: contain;
+  background-position: right bottom;
+  margin-top: -40vw;
+  position: absolute;
+  bottom: 400px;
+  right: 20px;
+  z-index: 0;
+}
+
+.players-container{
+  z-index: 2;
+  position: relative;
+  background: transparent linear-gradient(334deg, #0E3888C6 0%, #00A7FFC6 100%) 0% 0% no-repeat padding-box;
+  box-shadow: 20px 30px 50px #00000029;
+  border: 5px solid #49D7DC;
+  border-radius: 29px;
+  padding: 0px;
+  overflow: hidden;
+}
+
+.player{
+  background-color: transparent;
+  padding: 10px 40px;
+  border-radius: 3px;
+  line-height: 40px;
+  h1{
+    font-size: 22px;
+    line-height: 22px;
+    text-align: left;
+  }
+  .username{
+    flex-grow: 1;
+  }
+  .flag{
+    height: 50px;
+    width: 90px;
+  }
+  .flag.active{
+    background-color: transparent;
+    background-image: url('../assets/flag.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center left;
+  }
+}
+
+.player:nth-child(even){
+  background-color: #0000000e;
+}
+
+.countdown-container{
+  background-color: transparent;
+  background-image: url('../assets/skeleton.svg');
+  background-repeat: no-repeat;
+  background-position: 20px bottom;
+  background-size: auto 100%;
+  margin-bottom: -2px;
+  min-height: 180px;
+  flex-wrap: wrap;
+  z-index: 2;
+
+  h1{
+    margin: 30px;
+    font-size: 30px;
+    line-height: 36px;
+    text-align: left;
+  }
+
+  .value{
+    background-color: #ffffff3a;
+    margin: 2px;
+    height: 76px;
+    width: 80px;
+    font-family: 'Krungthep';
+    line-height: 76px;
+    text-align: center;
+    font-size: 30px;
+  }
+}
+
+.rankteller-container{
+  font-family: 'Krungthep';
+  font-size: 50px;
+  margin-bottom: 40px;
+
+  .rankteller-container-inner{
+    flex-wrap: wrap;
+    & > div{
+      margin: 30px;
+    }
+
+  }
+
+  .pirate-logo{
+    background-color: transparent;
+    background-image: url('../assets/pirate-raccoon.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    height: 150px;
+    width: 150px;
+  }
+
+  .name{
+    word-wrap: break-word;
+    max-width: 100vw;
+    text-transform: uppercase;
+  }
+
+  .rank{
+    & > span{
+      background-color: #ffffff3a;
+      padding: 10px 20px;
+    }
+  }
+}
+
+@media screen and (max-width: 1100px){
+  .rankteller-container-inner{
+    & > div{
+      flex-basis: 100%;
+      text-align: center;
+      margin: 10px !important;
+    }
+  }
+}
+
+
+@media screen and (max-width: 600px){
+  .intro{
+    text-align: left;
+  }
+  .countdown-container{
+    padding-bottom: 45px;
+    background-size: auto 40%;
+    h1{
+      text-align: center;
+    }
+    .value{
+      line-height: 70px;
+      height: 70px;
+      width: 70px;
+    }
+  }
+
+  .player{
+    padding: 10px 20px;
+    .flag{
+      height: 40px;
+      width: 60px;
+    }
+  }
+
+  .rankteller-container{
+    .name{
+      font-size: 30px;
+    }
+    .rank{
+      font-size: 44px;
+    }
+  }
 }

@@ -3,6 +3,7 @@ import {END_TIME} from '../settings';
 import AxiosInstance from '../AxiosInstance';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectUser } from '../store/slices/auth-slice';
+import { selectConfigs } from '../store/slices/config-slice';
 import { useNavigate } from 'react-router-dom';
 
 const Stealer = (props) => {
@@ -11,6 +12,7 @@ const Stealer = (props) => {
   const [cooldown, setCoolDown] = useState(0);
   const defaultCooldown = 10000;
   const auth = useSelector(selectUser);
+  const configs = useSelector(selectConfigs);
   const navigate = useNavigate();
 
 
@@ -47,20 +49,20 @@ const Stealer = (props) => {
   }
 
   const getButtonContent = () => {
-    if(props.gameEnded){
+    if(configs.gameEnded){
       return "THE SHIP HAS SAILED";
     }
     if(cooldown === defaultCooldown){
       return "STEALING...";
     }
     if(cooldown > 0){
-      return "COOLDOWN: " + cooldown;
+      return "COOLDOWN: " + (cooldown/1000).toFixed(2);
     }
-    return "STEAL TOP 25";
+    return "STEAL A SPOT!";
   }
 
   const getButtonDisabled = () => {
-    return (cooldown > 0 || props.gameEnded || lastSteal === -1);
+    return (cooldown > 0 || configs.gameEnded || lastSteal === -1);
   }
 
   return (

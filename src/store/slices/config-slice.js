@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { REQUEST_STATUS } from '../constants';
 import {
 	fetchConfig,
+  checkGameEndedAction,
 	handleFetchConfigPending,
   handleFetchConfigRejected,
 	handleFetchConfigFulfilled
@@ -13,9 +14,12 @@ export const configSlice = createSlice({
     endTime: Date.now() + 24 * 60 * 60 * 1000,
     maxWinners: 51,
     stealPosition: 26,
+    gemeEnded: false,
     status: REQUEST_STATUS.COMPLETE
   },
-  reducers: {},
+  reducers: {
+    checkGameEnded: checkGameEndedAction
+  },
   extraReducers: (builder) => {
     builder.addCase(fetchConfig.pending, handleFetchConfigPending);
     builder.addCase(fetchConfig.rejected, handleFetchConfigRejected);
@@ -27,4 +31,5 @@ export const configSlice = createSlice({
 // export const {} = cardSlice.actions;
 
 export const selectConfigs = (state) => state.config;
+export const { checkGameEnded } = configSlice.actions;
 export default configSlice.reducer;

@@ -3,6 +3,7 @@ import { REQUEST_STATUS } from '../constants';
 import {
 	authChooseUsername,
 	authLogin,
+  authLogoutAction,
 	handleFetchAuthPending,
   handleFetchAuthRejected,
 	handleFetchAuthFulfilled
@@ -16,7 +17,9 @@ export const authSlice = createSlice({
     error: "",
     status: REQUEST_STATUS.COMPLETE
   },
-  reducers: {},
+  reducers: {
+    authLogout: authLogoutAction
+  },
   extraReducers: (builder) => {
     builder.addCase(authChooseUsername.pending, handleFetchAuthPending);
     builder.addCase(authChooseUsername.rejected, handleFetchAuthRejected);
@@ -32,4 +35,5 @@ export const authSlice = createSlice({
 
 export const selectError = (state) => state.auth.error;
 export const selectUser = (state) => ({email: state.auth.email, username: state.auth.username});
+export const {authLogout} = authSlice.actions;
 export default authSlice.reducer;

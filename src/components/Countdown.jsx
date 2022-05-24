@@ -1,40 +1,65 @@
 import React, { useState, useEffect } from 'react';
 import {END_TIME} from '../settings';
-import { useSelector } from 'react-redux';
-import { selectConfigs } from '../store/slices/config-slice';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectConfigs, checkGameEnded } from '../store/slices/config-slice';
+
 
 const Countdown = (props) => {
   let interval;
-  const [timeString, setTimeString] = useState("00 H 00 M 00 S");
+  const [timeArray, setTimeArray] = useState(['00', '00', '00']);
+  const [title, setTitle] = useState("The game will end soon!");
   const configs = useSelector(selectConfigs);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    console.log('effect');
-    if(!props.gameEnded){
+    if(!configs.gameEnded){
       interval = setInterval(() => {
         let time = configs.endTime - Date.now();
         if(time < 0){
-          props.setGameEnded(true);
+          dispatch(checkGameEnded());
         }
-        let [hours, minutes, seconds] = (new Date(time)).toISOString().substr(11, 8).split(':');
+        let result = (new Date(time)).toISOString().substr(11, 8).split(':');
         let days = Math.floor(time / (1000*60*60*24));
+        if(days < 1){
+          setTimeArray(result);
+          return;
+        }
         if(days < 10){days = "0" + days;}
-        let result = days > 0 ? `${days} D ${hours} H ${minutes} M ${seconds} S` : `${hours} H ${minutes} M ${seconds} S`;
-        setTimeString(result);
+        setTimeArray([days, ...result]);
       }, 500);
     } else {
-      setTimeString("00 H 00 M 00 S");
+      setTitle('The game has ended!');
+      setTimeArray(['00', '00', '00']);
     }
 
     return (() => {
       clearInterval(interval);
     });
-  }, [configs, props.gameEnded]);
+  }, [configs]);
+
+  const getCountdown = () => {
+    return timeArray.map((num, index) => {
+      return (<div key={index} className="value">{num}</div>);
+    });
+  }
+
+  const getTitle = () => {
+    if(!configs.gameEnded){
+      return (<span>The game will <br /> end soon!</span>);
+    }
+    return (<span>The game <br /> has ended!</span>);
+    return "The game has ended!";
+  }
 
 
   return (
-    <div className="container">
-      {timeString}
+    <div className="row middle center countdown-container">
+      { getCountdown() }
+      <div>
+        <h1>
+          {getTitle()}
+        </h1>
+      </div>
     </div>
   )
 }

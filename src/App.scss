@@ -1,7 +1,7 @@
 /* Extends Milligram */
 
-$main-color: #606c76;
-$accent-color: #9b4dca;
+$main-color: #fff;
+$accent-color: #E39F00;
 
 body{
   margin: 0;
@@ -45,4 +45,109 @@ body{
 .button-alt{
   background-color: #fff;
   color: $accent-color;
+}
+
+.centered{
+  margin: auto;
+}
+
+// Raccoon
+
+@font-face {
+  font-family: 'Krungthep';
+  src: local('MyFont'), url(./assets/fonts/Krungthep.ttf) format('ttf');
+}
+
+body{
+  font-family: 'Poppins', sans-serif;
+}
+
+.app-container{
+  position: relative;
+  background-image: linear-gradient(90deg, #C22DB0 0%, #68007B 100%);
+  padding: 5px;
+  min-height: 100vh;
+  padding-bottom: 460px;
+}
+
+input[type="text"],
+input[type="email"]{
+  background-color: #fff;
+  border-radius: 0px;
+  border: 0px;
+  text-align: center;
+  font-family: 'Poppins', sans-serif;
+  font-size: 18px;
+  padding: 21px;
+  border: 2px solid #fff;
+}
+input[type="text"]:focus,
+input[type="email"]:focus{
+  border: 2px solid $accent-color;
+}
+
+h1{
+  color: #fff;
+  font: normal normal normal 56px/72px Krungthep;
+  text-transform: uppercase;
+  letter-spacing: 0px;
+  text-align: center;
+}
+@media screen and (max-width: 600px){
+  h1{
+    font-size: 36px;
+  }
+}
+
+button, .button{
+  border-radius: 0px;
+  font-family: Krungthep;
+  font-size: 30px;
+  letter-spacing: 0px;
+  line-height: 30px;
+  padding: 10px 20px;
+  height: auto;
+  background-color: $accent-color;
+  border-width: 2px;
+}
+
+
+button:hover, .button:hover,
+button:active, .button:active,
+button:focus, .button:focus{
+  background-color: $accent-color;
+  border-color: $main-color;
+}
+
+.container.footer{
+  background-color: red;
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+  width: 100%;
+  margin: 0px;
+  padding: 0;
+  max-width: 100%;
+  background: transparent linear-gradient(180deg, #00000061 0%, #30003961 100%) 0% 0% no-repeat padding-box;
+  height: 400px;
+  .footer-inner{
+    height: 100%;
+  }
+  .logo{
+    background-image: url('./assets/logo.svg');
+    background-repeat: no-repeat;
+    background-position: center left;
+    background-size: contain;
+    width: 300px;
+    height: 100px;
+    flex-grow: 1;
+  }
+  .footer-links{
+    padding-left: 20px;
+    min-width: 200px;
+  }
+}
+
+.container.no-padding{
+  padding: 0px;
 }
