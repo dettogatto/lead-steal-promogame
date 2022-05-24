@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { selectUser } from './store/slices/auth-slice';
 import { authLogin } from './store/actions/auth-actions';
 import { fetchConfig } from './store/actions/config-actions';
+import Footer from './components/Footer';
 
 
 
@@ -40,7 +41,7 @@ function App() {
 
 
   return (
-    <>
+    <div className="app-container">
       <Routes>
         <Route index element={<LoginEmailPage />} />
         <Route exact path="/login" element={<LoginEmailPage />} />
@@ -48,7 +49,8 @@ function App() {
         <Route exact path="/leaderboard" element={<LeaderboardPage username={auth.username} />} />
         <Route path="*" element={<span>There&apos;s no raccoon here: 404!</span>} />
       </Routes>
-    </>
+      <Footer />
+    </div>
 );
 }
 

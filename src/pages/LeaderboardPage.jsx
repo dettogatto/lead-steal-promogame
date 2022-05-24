@@ -44,16 +44,22 @@ const LeaderboardPage = (props) => {
   }
 
   return (
-    <div className="container">
-      <div className="header row">
-        <Countdown gameEnded={gameEnded} setGameEnded={setGameEnded} />
-        <RankTeller rank={myRank} />
-        <Stealer gameEnded={gameEnded} refreshBoard={refreshBoard} />
-      </div>
+    <>
+    <div className="container no-padding">
+      <RankTeller rank={myRank} username={auth.username} />
+      <p className="intro">
+        Click the button and steal your place on the ship. <br />
+        Each time you will get a random spot in the top half of the leaderboard. <br />
+        Secure one of the 50 spots before the ship sets sail to win an exclusive NFT!
+      </p>
+      <Stealer gameEnded={gameEnded} refreshBoard={refreshBoard} />
+      <Countdown gameEnded={gameEnded} setGameEnded={setGameEnded} />
       <div className="players-container container">
         {getPlayers()}
       </div>
     </div>
-  )
+    <div className="footer-ship"></div>
+    </>
+)
 }
 export default LeaderboardPage;

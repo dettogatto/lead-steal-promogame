@@ -15,7 +15,4 @@ export const ROUTER_BASENAME = routerBasename;
 
 export const API_URL = apiUrl;
 
-export const MAX_WINNERS = 50;
-export const END_TIME = Date.now() + 24*60*60*1000;
-
 export const LEADERBOARD_REFRESH_INTERVAL = 5000;

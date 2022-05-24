@@ -5,6 +5,7 @@ import { authChooseUsername } from '../store/actions/auth-actions';
 import { selectError } from '../store/slices/auth-slice';
 import {selectUser} from '../store/slices/auth-slice';
 import { useNavigate } from 'react-router-dom';
+import pirate from '../assets/pirate-raccoon.png'
 
 
 const LoginUsernamePage = (props) => {
@@ -37,25 +38,28 @@ const LoginUsernamePage = (props) => {
   }
 
   return (
-    <div className="container fullscreen absolute">
-      <div className="row middle center form-container">
-        <form>
-          {error && (
-            <div className="error container">
-              {error}
-            </div>
-          )}
-          Your username:
-          <input
-            type="email"
-            placeholder="MajesticRaccoon"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            />
-          <button onClick={handleLogin}>Start Stealing!</button>
-        </form>
-      </div>
+    <>
+    <div className="spacer"></div>
+    <div className="container middle center centered form-container">
+      <div style={{backgroundImage: `url(${pirate})`}} className="pirate centered"></div>
+      <form>
+        <h1>Gain your NFT</h1>
+        {error && (
+          <div className="error container">
+            {error}
+          </div>
+        )}
+        <input
+          type="text"
+          placeholder="Enter your nickname"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+          />
+        <button onClick={handleLogin}>Start stealing!</button>
+      </form>
     </div>
+    <div className="footer-treasure"></div>
+    </>
   )
 }
 export default LoginUsernamePage;

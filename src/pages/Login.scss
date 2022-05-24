@@ -2,11 +2,60 @@
   background-color: #a00;
   padding: 10px 20px;
   width: 100;
-  margin-bottom: 20px;
+  margin-bottom: 15px;
   color: #fff;
   font-weight: 400;
+  text-align: center;
 }
 
 .form-container{
+  z-index: 2;
   position: relative;
+  background: transparent linear-gradient(334deg, #0E3888D8 0%, #00A7FFD8 100%) 0% 0% no-repeat padding-box;
+  box-shadow: 20px 30px 50px #00000029;
+  border: 5px solid #49D7DC;
+  border-radius: 66px;
+  text-align: right;
+  max-width: 842px;
+  padding-bottom: 30px;
+  form{
+    max-width: 500px;
+    margin: auto;
+  }
+
+}
+
+.pirate{
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  max-width: 462px;
+  max-height: 488px;
+  width: 70vw;
+  height: 70vw;
+  display: block;
+  margin-top: -30%;
+}
+
+.spacer{
+  height: 30vw;
+  max-height: 280px;
+}
+
+h1{
+  margin-top: 20px;
+}
+
+.footer-treasure{
+  height: 50vw;
+  width: 50vw;
+  max-height: 500px;
+  background-repeat: no-repeat;
+  background-image: url('../assets/treasure.svg');
+  background-size: contain;
+  margin-top: -40vw;
+  position: absolute;
+  bottom: 400px;
+  left: 20px;
+  z-index: 0;
 }

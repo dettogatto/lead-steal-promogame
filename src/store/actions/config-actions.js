@@ -10,6 +10,10 @@ export const fetchConfig = createAsyncThunk('auth/fetchConfig', async (payload, 
   return data;
 });
 
+export const checkGameEndedAction = (state, action) => {
+  state.gameEnded = (state.endTime * 1000 < Date.now());
+}
+
 export const handleFetchConfigPending = (state) => {
   state.status = REQUEST_STATUS.PENDING;
 };
@@ -19,9 +23,9 @@ export const handleFetchConfigRejected = (state, action) => {
 };
 
 export const handleFetchConfigFulfilled = (state, { payload }) => {
-  console.log('GOT CONFIGS', payload);
   state.endTime = payload.end_time * 1000;
   state.maxWinners = payload.max_winners;
   state.stealPosition = payload.steal_position;
+  state.gameEnded = (payload.end_time * 1000 < Date.now());
   state.status = REQUEST_STATUS.COMPLETE;
 };

@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { authLogin } from '../store/actions/auth-actions';
 import { selectError } from '../store/slices/auth-slice';
+import pirate from "../assets/pirate-raccoon.png";
 
 const LoginEmailPage = (props) => {
 
@@ -24,25 +25,28 @@ const LoginEmailPage = (props) => {
   }
 
   return (
-    <div className="container fullscreen absolute">
-      <div className="row middle center form-container">
-        <form>
-          {error && (
-            <div className="error container">
-              {error}
-            </div>
-          )}
-          Your email:
-          <input
-            type="email"
-            placeholder="magic.raccoon@give.me"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            />
-          <button onClick={handleLogin}>Login!</button>
-        </form>
-      </div>
+    <>
+    <div className="spacer"></div>
+    <div className="container middle center centered form-container">
+      <div style={{backgroundImage: `url(${pirate})`}} className="pirate centered"></div>
+      <form>
+        <h1>Gain your NFT</h1>
+        {error && (
+          <div className="error container">
+            {error}
+          </div>
+        )}
+        <input
+          type="email"
+          placeholder="Enter your email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          />
+        <button onClick={handleLogin}>Jump in!</button>
+      </form>
     </div>
+    <div className="footer-treasure"></div>
+    </>
   )
 }
 export default LoginEmailPage;

@@ -25,6 +25,12 @@ export const authLogin = createAsyncThunk('auth/login', async (payload, thunkAPI
   return data;
 });
 
+export const authLogoutAction = (state) => {
+  state.email = "";
+  state.username = "";
+  localStorage.removeItem('rc_user_email');
+}
+
 export const handleFetchAuthPending = (state) => {
   state.status = REQUEST_STATUS.PENDING;
 };
@@ -52,7 +58,7 @@ const emailError = (email) => {
 };
 
 const usernameError = (username) => {
-  let res = (username && username.length > 2);
-  if(!res){ throw "Username must be 3 or more chars"; }
+  if(!username || username.length < 3){ throw "Username must be 3 or more chars"; }
+  if(username.length > 15){ throw "Username can't be longer than 15 chars"; }
   return username;
 };
