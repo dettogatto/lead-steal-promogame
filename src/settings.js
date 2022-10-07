@@ -16,3 +16,5 @@ export const ROUTER_BASENAME = routerBasename;
 export const API_URL = apiUrl;
 
 export const LEADERBOARD_REFRESH_INTERVAL = 5000;
+
+export const LOCALSTORAGE_EMAIL_FIELD = 'rc_user_email';

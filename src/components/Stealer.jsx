@@ -15,7 +15,7 @@ const Stealer = (props) => {
   const navigate = useNavigate();
 
   let interval;
-  const [timeString, setTimeString] = useState("ciao");
+  const [timeString, setTimeString] = useState("");
 
   useEffect(() => {
     interval = setInterval(() => {
@@ -48,15 +48,15 @@ const Stealer = (props) => {
 
   const getButtonContent = () => {
     if(configs.gameEnded){
-      return "THE SHIP HAS SAILED";
+      return "LA NAVE È SALPATA";
     }
     if(cooldown === configs.cooldown){
-      return "STEALING...";
+      return "ARREMBAGGIO...";
     }
     if(cooldown > 0){
       return "COOLDOWN: " + (cooldown/1000).toFixed(2);
     }
-    return "STEAL A SPOT!";
+    return "CONQUISTA UN POSTO!";
   }
 
   const getButtonDisabled = () => {

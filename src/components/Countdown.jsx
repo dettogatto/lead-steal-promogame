@@ -7,7 +7,6 @@ import { selectConfigs, checkGameEnded } from '../store/slices/config-slice';
 const Countdown = (props) => {
   let interval;
   const [timeArray, setTimeArray] = useState(['00', '00', '00']);
-  const [title, setTitle] = useState("The game will end soon!");
   const configs = useSelector(selectConfigs);
   const dispatch = useDispatch();
 
@@ -28,7 +27,6 @@ const Countdown = (props) => {
         setTimeArray([days, ...result]);
       }, 500);
     } else {
-      setTitle('The game has ended!');
       setTimeArray(['00', '00', '00']);
     }
 
@@ -45,10 +43,9 @@ const Countdown = (props) => {
 
   const getTitle = () => {
     if(!configs.gameEnded){
-      return (<span>The game will <br /> end soon!</span>);
+      return (<span>Il gioco <br /> finirà presto!</span>);
     }
-    return (<span>The game <br /> has ended!</span>);
-    return "The game has ended!";
+    return (<span>Il gioco <br /> è finito!</span>);
   }
 
 

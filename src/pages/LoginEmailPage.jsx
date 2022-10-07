@@ -30,7 +30,7 @@ const LoginEmailPage = (props) => {
     <div className="container middle center centered form-container">
       <div style={{backgroundImage: `url(${pirate})`}} className="pirate centered"></div>
       <form>
-        <h1>Gain your NFT</h1>
+        <h1>Ruba il tuo NFT</h1>
         {error && (
           <div className="error container">
             {error}
@@ -38,11 +38,11 @@ const LoginEmailPage = (props) => {
         )}
         <input
           type="email"
-          placeholder="Enter your email"
+          placeholder="Inserisci la tua email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           />
-        <button onClick={handleLogin}>Jump in!</button>
+        <button onClick={handleLogin}>Entra!</button>
       </form>
     </div>
     <div className="footer-treasure"></div>

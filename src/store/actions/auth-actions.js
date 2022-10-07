@@ -2,6 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import AxiosInstance from '../../AxiosInstance';
 import { REQUEST_STATUS } from '../constants';
 import { useSelector, useDispatch } from 'react-redux';
+import { LOCALSTORAGE_EMAIL_FIELD } from '../../settings';
 
 
 // Login
@@ -28,7 +29,7 @@ export const authLogin = createAsyncThunk('auth/login', async (payload, thunkAPI
 export const authLogoutAction = (state) => {
   state.email = "";
   state.username = "";
-  localStorage.removeItem('rc_user_email');
+  localStorage.removeItem(LOCALSTORAGE_EMAIL_FIELD);
 }
 
 export const handleFetchAuthPending = (state) => {
@@ -45,7 +46,7 @@ export const handleFetchAuthFulfilled = (state, { payload }) => {
   state.email = payload.data.email;
   state.status = REQUEST_STATUS.COMPLETE;
   if(payload.data.email){
-    localStorage.setItem('rc_user_email', payload.data.email);
+    localStorage.setItem(LOCALSTORAGE_EMAIL_FIELD, payload.data.email);
   }
 };
 

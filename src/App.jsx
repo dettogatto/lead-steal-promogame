@@ -9,6 +9,7 @@ import { selectUser } from './store/slices/auth-slice';
 import { authLogin } from './store/actions/auth-actions';
 import { fetchConfig } from './store/actions/config-actions';
 import Footer from './components/Footer';
+import { LOCALSTORAGE_EMAIL_FIELD } from './settings';
 
 
 
@@ -27,7 +28,7 @@ function App() {
   }, [auth]);
 
   useEffect(() => {
-    let email = localStorage.getItem('rc_user_email');
+    let email = localStorage.getItem(LOCALSTORAGE_EMAIL_FIELD);
     if(email){
       dispatch(authLogin({
         email: email

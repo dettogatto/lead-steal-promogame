@@ -43,7 +43,7 @@ const LoginUsernamePage = (props) => {
     <div className="container middle center centered form-container">
       <div style={{backgroundImage: `url(${pirate})`}} className="pirate centered"></div>
       <form>
-        <h1>Gain your NFT</h1>
+        <h1>Ruba il tuo NFT</h1>
         {error && (
           <div className="error container">
             {error}
@@ -51,11 +51,11 @@ const LoginUsernamePage = (props) => {
         )}
         <input
           type="text"
-          placeholder="Enter your nickname"
+          placeholder="Inserisci il tuo nickname"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
           />
-        <button onClick={handleLogin}>Start stealing!</button>
+        <button onClick={handleLogin}>Inizia!</button>
       </form>
     </div>
     <div className="footer-treasure"></div>

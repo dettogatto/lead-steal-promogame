@@ -48,9 +48,9 @@ const LeaderboardPage = (props) => {
     <div className="container no-padding">
       <RankTeller rank={myRank} username={auth.username} />
       <p className="intro">
-        Click the button and steal your place on the ship. <br />
-        Each time you will get a random spot in the top half of the leaderboard. <br />
-        Secure one of the 50 spots before the ship sets sail to win an exclusive NFT!
+        Fai clic sul pulsante e prendi posto sulla nave! <br />
+        Ogni volta ti verrà assegnato un posto a caso nella metà superiore della classifica. <br />
+        Assicurati uno dei 50 posti prima che la nave salpi per vincere il nostro esclusivo NFT!
       </p>
       <Stealer gameEnded={gameEnded} refreshBoard={refreshBoard} />
       <Countdown gameEnded={gameEnded} setGameEnded={setGameEnded} />
